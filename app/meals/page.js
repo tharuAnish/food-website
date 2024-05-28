@@ -2,8 +2,10 @@ import Link from "next/link"
 
 import classes from "./page.module.css"
 import MealsGrid from "@/components/meals/meals-grid"
+import { getMeals } from "@/lib/meals"
 
-export default function Meals() {
+export default async function Meals() {
+  const meals = await getMeals()
   return (
     <>
       <header className={classes.header}>
@@ -19,42 +21,7 @@ export default function Meals() {
         </p>
       </header>
       <main className={classes.main}>
-        <MealsGrid
-          meals={[
-            {
-              title: "Spaghetti Carbonara",
-              slug: "spaghetti-carbonara",
-              image: "/images/meals/spaghetti-carbonara.jpg",
-              summary:
-                "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
-              creator: "Chef Mario",
-            },
-            {
-              title: "Chicken Tikka Masala",
-              slug: "chicken-tikka-masala",
-              image: "/images/meals/chicken-tikka-masala.jpg",
-              summary:
-                "A popular Indian curry dish made with marinated chicken in a spiced tomato sauce.",
-              creator: "Chef Anjali",
-            },
-            {
-              title: "Sushi Platter",
-              slug: "sushi-platter",
-              image: "/images/meals/sushi-platter.jpg",
-              summary:
-                "A variety of fresh sushi rolls, nigiri, and sashimi served with soy sauce and wasabi.",
-              creator: "Chef Hiro",
-            },
-            {
-              title: "Vegan Buddha Bowl",
-              slug: "vegan-buddha-bowl",
-              image: "/images/meals/vegan-buddha-bowl.jpg",
-              summary:
-                "A nutritious bowl of quinoa, roasted vegetables, avocado, and tahini dressing.",
-              creator: "Chef Maya",
-            },
-          ]}
-        />
+        <MealsGrid meals={meals} />
       </main>
     </>
   )
