@@ -1,30 +1,31 @@
-import Image from "next/image"
-import classes from "./page.module.css"
-import { getMeal } from "@/lib/meals"
-import { notFound } from "next/navigation"
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
-//Dynamic metadata
-export async function generateMetaData({ params }) {
-  const meal = getMeal(params.mealSlug)
+import { getMeal } from '@/lib/meals';
+import classes from './page.module.css';
+
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.mealSlug);
 
   if (!meal) {
-    notFound()
+    notFound();
   }
 
   return {
     title: meal.title,
     description: meal.summary,
-  }
+  };
 }
 
 export default function MealDetailsPage({ params }) {
-  const meal = getMeal(params.mealSlug)
+  const meal = getMeal(params.mealSlug);
 
   if (!meal) {
-    notFound()
+    notFound();
   }
 
-  meal.instructions = meal.instructions.replace(/\n/g, "<br/>")
+  meal.instructions = meal.instructions.replace(/\n/g, '<br />');
+
   return (
     <>
       <header className={classes.header}>
@@ -42,9 +43,11 @@ export default function MealDetailsPage({ params }) {
       <main>
         <p
           className={classes.instructions}
-          dangerouslySetInnerHTML={{ __html: meal.instructions }}
+          dangerouslySetInnerHTML={{
+            __html: meal.instructions,
+          }}
         ></p>
       </main>
     </>
-  )
+  );
 }
